@@ -24,7 +24,7 @@ args = None
 client = None
 vault_embeddings_tensor = None
 vault_content = []
-system_message = "You are a helpful assistant that is an expert at extracting the most useful information from a given text. Also bring in extra relevant infromation to the user query from outside the given context."
+system_message = "You are a helpful assistant that is an expert at extracting the most useful information from a given text. Also bring in any extra relevant information to the user query from outside the given context."
 
 # ========== UTILS ==========
 def open_file(filepath):
