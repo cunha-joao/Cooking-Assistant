@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>IPVC - AI Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="chat-container">
+        <!-- ─────────────────────────────────────────────────────────────────────────────────────────────
+                          Header + Controles
+        ───────────────────────────────────────────────────────────────────────────────────────────── -->
+        <div class="header">
+            <div class="controls">
+                <button class="control-btn" onclick="toggleChatSidebar()" title="Chats">💬</button>
+                <button class="control-btn theme-toggle" onclick="toggleTheme()" id="themeToggleBtn" title="Alternar Modo">🌙</button>
+                <button class="control-btn" onclick="exportChat()" title="Exportar Conversa">📥</button>
+                <button class="control-btn" onclick="toggleSidebar()" title="Menu">☰</button>
+            </div>
+        </div>
+    
+        <!-- ─────────────────────────────────────────────────────────────────────────────────────────────
+                          Mensagens do Chat
+        ───────────────────────────────────────────────────────────────────────────────────────────── -->
+        <div class="chat-messages" id="chatMessages">
+            <div class="welcome-message">
+                <h1>🎓 IPVC - AI Assistant</h1>
+                <p>O Teu Assistente de IA para Regulamentos e Políticas da Universidade</p>
+                <p>Estou aqui para ajudá-lo a entender os regulamentos, políticas e procedimentos da universidade. Até para te ajudar a estudar. Pergunte qualquer coisa sobre requisitos acadêmicos, prazos, regras do campus, serviços estudantis, ou altera o modelo para uma disciplina especifica do seu curso, treinados pelos próprios professores para auxio na sua aprendizagem.</p>
+                
+                <div class="sample-questions">
+                    <div class="sample-question" onclick="askSampleQuestion('Quais são os requisitos para graduação no meu curso?')">
+                        <h4>📚 Requisitos Acadêmicos</h4>
+                        <p>Quais são os requisitos para graduação no meu curso?</p>
+                    </div>
+                    <div class="sample-question" onclick="askSampleQuestion('Como faço para solicitar licença acadêmica ou adiamento?')">
+                        <h4>📝 Procedimentos Acadêmicos</h4>
+                        <p>Como faço para solicitar licença acadêmica ou adiamento?</p>
+                    </div>
+                    <div class="sample-question" onclick="askSampleQuestion('Quais são as políticas e procedimentos de habitação no campus?')">
+                        <h4>🏠 Vida no Campus</h4>
+                        <p>Quais são as políticas e procedimentos de habitação no campus?</p>
+                    </div>
+                    <div class="sample-question" onclick="askSampleQuestion('Como funciona o processo de conduta e disciplina estudantil?')">
+                        <h4>⚖️ Conduta Estudantil</h4>
+                        <p>Como funciona o processo de conduta e disciplina estudantil?</p>
+                    </div>
+                    <div class="sample-question" onclick="askSampleQuestion('Quais opções de auxílio financeiro estão disponíveis para estudantes?')">
+                        <h4>💰 Auxílio Financeiro</h4>
+                        <p>Quais opções de auxílio financeiro estão disponíveis para estudantes?</p>
+                    </div>
+                    <div class="sample-question" onclick="askSampleQuestion('Quais são as datas e prazos acadêmicos importantes?')">
+                        <h4>📅 Datas Importantes</h4>
+                        <p>Quais são as datas e prazos acadêmicos importantes?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <!-- ─────────────────────────────────────────────────────────────────────────────────────────────
+                          Indicador de Digitação
+        ───────────────────────────────────────────────────────────────────────────────────────────── -->
+        <div class="typing-indicator" id="typingIndicator">
+            <span>A pensar</span>
+            <div class="typing-dots">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+    
+        <!-- ─────────────────────────────────────────────────────────────────────────────────────────────
+                          Área de Entrada + Ações Rápidas
+        ───────────────────────────────────────────────────────────────────────────────────────────── -->
+        <div class="input-container">
+            <div class="quick-actions">
+                <button class="quick-action-btn" onclick="insertText('Resumir ')">📄 Resumir</button>
+                <button class="quick-action-btn" onclick="insertText('Explicar ')">💡 Explicar</button>
+                <button class="quick-action-btn" onclick="insertText('Quais são os prazos para ')">⏰ Prazos</button>
+                <button class="quick-action-btn" onclick="insertText('Como faço para solicitar ')">📝 Solicitar</button>
+                <button class="quick-action-btn" onclick="insertText('Quais são os requisitos para ')">✅ Requisitos</button>
+            </div>
+            <div class="input-wrapper" id="inputWrapper">
+                <button class="attachment-btn" onclick="openFileDialog()" title="Anexar Arquivo">📎</button>
+                <textarea
+                    class="message-input"
+                    id="messageInput"
+                    placeholder="Pergunte sobre regulamentos, políticas, prazos da universidade..."
+                    rows="1"
+                ></textarea>
+                <div class="word-count" id="wordCount">0/2000</div>
+                <div class="input-tools">
+                    <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceRecording()" title="Entrada de Voz">🎤</button>
+                    <button class="send-button" id="sendButton" onclick="sendMessage()">✉️</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- ─────────────────────────────────────────────────────────────────────────────────────────────
+                      Barra Lateral
+    ───────────────────────────────────────────────────────────────────────────────────────────── -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Menu</h2>
+            <button class="close-btn" onclick="toggleSidebar()">×</button>
+        </div>
+        <div class="sidebar-content">
+            <div class="sidebar-section">
+                <h3>🕒 Histórico de Conversa</h3>
+                <div id="chatHistory">
+                    <!-- Itens do histórico serão inseridos aqui -->
+                </div>
+                <button class="quick-action-btn" onclick="clearHistory()" style="width: 100%; margin-top: 10px;">
+                    🗑️ Limpar Histórico
+                </button>
+            </div>
+            <div class="sidebar-section">
+                <h3>🤖 Escolher Assistente</h3> 
+            
+                <div class="settings-item models-select">
+                    <label for="institutionSelect">Instituição</label>
+                    <select id="institutionSelect" onchange="renderCourses()">
+                        <option value="">-- Escolha --</option>
+                        <option value="ESTG">ESTG</option>
+                        <option value="ESS">ESS</option>
+                        <option value="ESE">ESE</option>
+                    </select>
+                </div>
+            
+                <div class="settings-item models-select">
+                    <label for="courseSelect">Curso</label>
+                    <select id="courseSelect" onchange="renderSubjectsFromSelect()" disabled>
+                        <option value="">-- Escolha --</option>
+                    </select>
+                </div>
+            
+                <div id="subjectListContainer" style="margin-top: 15px;"></div>
+                <div id="subjectModel" style="margin-top: 10px; font-size: 0.9em;"></div>
+            </div> 
+            <div class="sidebar-section">
+                <h3>⚙️ Configurações</h3>
+                <div class="settings-item">
+                    <span>Modo Escuro</span>
+                    <div class="toggle-switch" id="darkModeToggle" onclick="toggleTheme()"></div>
+                </div>
+                <div class="settings-item">
+                    <span>Salvar Conversas Automaticamente</span>
+                    <div class="toggle-switch active" id="autoSaveToggle" onclick="toggleAutoSave()"></div>
+                </div>
+                <div class="settings-item">
+                    <span>Entrada de Voz</span>
+                    <div class="toggle-switch active" id="voiceToggle" onclick="toggleVoiceFeature()"></div>
+                </div>
+                <div class="settings-item">
+                    <span>Notificações Sonoras</span>
+                    <div class="toggle-switch" id="soundToggle" onclick="toggleSound()"></div>
+                </div>
+            </div>
+            <div class="sidebar-section stats">
+                <h3>📊 Estatísticas</h3>
+                <p>Mensagens enviadas: <span id="messageCount">0</span></p>
+                <p>Tempo médio de resposta: <span id="avgResponseTime">--</span> ms</p>
+                <p>Duração da sessão: <span id="sessionDuration">00:00</span></p>
+            </div>                          
+        </div>
+    </div> 
+    <!-- Sidebar para Chats -->
+    <div class="sidebar chat-sidebar" id="chatSidebar">
+        <div class="sidebar-header">
+            <h2>Histórico de Chats</h2>
+            <div class="chat-header-actions">
+                <!-- Botão de fechar -->
+                <button class="close-btn" onclick="toggleChatSidebar()">×</button>
+            </div>
+        </div>
+        <div class="sidebar-content">
+             <!-- Botão para criar nova conversa -->
+             <button class="quick-action-btn" onclick="createNewChat()" title="Novo Chat">➕ Novo Chat</button>
+            <div id="chatList">
+                <!-- Lista de chats vai aqui -->
+                <p>Nenhum chat salvo ainda.</p>
+            </div>
+            <button class="quick-action-btn" onclick="clearChatList()" style="width: 100%; margin-top: 10px;">
+                🗑️ Limpar Histórico de Chats
+            </button>
+        </div>
+    </div>
+    <!-- ─────────────────────────────────────────────────────────────────────────────────────────────
+                      Loading Page
+    ───────────────────────────────────────────────────────────────────────────────────────────── -->
+    <div id="loadingOverlay" style="display:none;">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Carregando o modelo, por favor aguarde...</div>
+        </div>
+    </div>
+    <!-- ─────────────────────────────────────────────────────────────────────────────────────────────
+                      Notification Toast
+    ───────────────────────────────────────────────────────────────────────────────────────────── -->
+    <div class="notification" id="notification"></div>
+    
+    <!-- Hidden file input for attachments -->
+    <input type="file" id="fileInput" style="display: none;" accept=".txt,.pdf,.doc,.docx" onchange="handleFileUpload(event)" />
+
+    <script>
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        //                          JavaScript & Event Handlers - Sistema de Chats Corrigido
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+
+        let conversationHistory = [];
+        let isProcessing = false;
+        let chatHistory = JSON.parse(localStorage.getItem('chatHistory') || '[]');
+        let settings = JSON.parse(localStorage.getItem('unibotSettings') || '{"darkMode": false, "autoSave": true, "voiceEnabled": true, "soundEnabled": false}');
+        let messageCount = 0;
+        let responseTimes = [];
+        let sessionStartTime = Date.now();
+        let isRecording = false;
+        let recognition = null;
+        let abortController = null;
+
+        // ──── SISTEMA DE CHATS ────
+        let chats = JSON.parse(localStorage.getItem('unibot_chats') || '[]');
+        let currentChatId = null;
+
+        // Sample questions para a mensagem de boas-vindas
+        const sampleQuestions = [
+            {
+                title: "📚 Requisitos Acadêmicos",
+                question: "Quais são os requisitos para graduação no meu curso?"
+            },
+            {
+                title: "📝 Procedimentos Acadêmicos", 
+                question: "Como faço para solicitar licença acadêmica ou adiamento?"
+            },
+            {
+                title: "🏠 Vida no Campus",
+                question: "Quais são as políticas e procedimentos de habitação no campus?"
+            },
+            {
+                title: "⚖️ Conduta Estudantil",
+                question: "Como funciona o processo de conduta e disciplina estudantil?"
+            },
+            {
+                title: "💰 Auxílio Financeiro",
+                question: "Quais opções de auxílio financeiro estão disponíveis para estudantes?"
+            },
+            {
+                title: "📅 Datas Importantes",
+                question: "Quais são as datas e prazos acadêmicos importantes?"
+            }
+        ];
+
+        // Initialize Web Speech recognition (if available)
+        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = true;
+            recognition.lang = 'pt-PT';
+
+            recognition.onresult = function(event) {
+                let interimTranscript = '';
+                let finalTranscript = '';
+                for (let i = event.resultIndex; i < event.results.length; ++i) {
+                    if (event.results[i].isFinal) {
+                        finalTranscript += event.results[i][0].transcript;
+                    } else {
+                        interimTranscript += event.results[i][0].transcript;
+                    }
+                }
+                document.getElementById('messageInput').value = finalTranscript || interimTranscript;
+                autoResize(document.getElementById('messageInput'));
+                updateWordCount();
+            };
+
+            recognition.onend = function() {
+                isRecording = false;
+                document.getElementById('voiceBtn').classList.remove('recording');
+            };
+        }
+
+        // On page load, apply settings and render chat history & stats
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSettings();
+            updateChatHistory();
+            updateStatistics();
+            startSessionTimer();
+            
+            // Inicializar sistema de chats
+            initializeChatSystem();
+        });
+
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        //                          SISTEMA DE CHATS - FUNÇÕES PRINCIPAIS
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+
+        function initializeChatSystem() {
+            renderChatList();
+            
+            // Se não há chats, criar um novo automaticamente
+            if (chats.length === 0) {
+                createNewChat();
+            } else {
+                // Selecionar o chat mais recente
+                selectChat(chats[0].id);
+            }
+        }
+
+        function createNewChat() {
+            const newChat = {
+                id: Date.now().toString(),
+                title: 'Nova Conversa',
+                messages: [],
+                conversationHistory: [],
+                timestamp: new Date().toISOString(),
+                lastMessage: ''
+            };
+            chats.unshift(newChat);
+            saveChats();
+            renderChatList();
+            selectChat(newChat.id);
+            showWelcomeMessage();
+        }
+
+        function selectChat(chatId) {
+            currentChatId = chatId;
+            const chat = chats.find(c => c.id === chatId);
+            if (!chat) return;
+
+            // Restaurar histórico de conversa
+            conversationHistory = chat.conversationHistory || [];
+            
+            // Atualizar UI
+            renderChatList();
+            renderMessages(chat.messages);
+            
+            // Fechar sidebar em mobile
+            if (window.innerWidth <= 768) {
+                toggleChatSidebar();
+            }
+        }
+
+        function renderMessages(messages) {
+            const container = document.getElementById('chatMessages');
+            container.innerHTML = '';
+            
+            if (messages.length === 0) {
+                showWelcomeMessage();
+                return;
+            }
+            
+            messages.forEach(msg => {
+                addMessageToUI(msg.content, msg.isUser, msg.contextHtml, false);
+            });
+        }
+
+        function deleteChat(chatId, event) {
+            event.stopPropagation();
+            
+            if (confirm('Tem certeza que deseja excluir esta conversa?')) {
+                chats = chats.filter(c => c.id !== chatId);
+                saveChats();
+                renderChatList();
+                
+                if (currentChatId === chatId) {
+                    if (chats.length > 0) {
+                        selectChat(chats[0].id);
+                    } else {
+                        createNewChat();
+                    }
+                }
+            }
+        }
+
+        function renameChat(chatId, event) {
+            event.stopPropagation();
+            
+            const chat = chats.find(c => c.id === chatId);
+            if (!chat) return;
+            
+            const newTitle = prompt('Digite o novo nome da conversa:', chat.title);
+            if (newTitle && newTitle.trim()) {
+                chat.title = newTitle.trim();
+                saveChats();
+                renderChatList();
+            }
+        }
+
+        function saveChats() {
+            localStorage.setItem('unibot_chats', JSON.stringify(chats));
+        }
+
+        function renderChatList() {
+            const chatList = document.getElementById('chatList');
+            
+            if (chats.length === 0) {
+                chatList.innerHTML = `
+                    <div style="text-align: center; padding: 20px; color: #666;">
+                        <p>Nenhuma conversa ainda.</p>
+                        <p style="font-size: 0.9rem; margin-top: 5px;">Uma nova conversa será criada automaticamente!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            chatList.innerHTML = chats.map(chat => {
+                const isActive = chat.id === currentChatId;
+                const date = new Date(chat.timestamp);
+                const timeString = date.toLocaleDateString('pt-PT') + ' ' + date.toLocaleTimeString('pt-PT', { hour: '2-digit', minute: '2-digit' });
+                
+                return `
+                    <div class="chat-item ${isActive ? 'active' : ''}" onclick="selectChat('${chat.id}')">
+                        <div class="chat-preview">
+                            <div class="chat-title">${chat.title}</div>
+                            <div class="chat-timestamp">${timeString}</div>
+                            ${chat.lastMessage ? `<div style="font-size: 0.8rem; opacity: 0.7; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${chat.lastMessage}</div>` : ''}
+                        </div>
+                        <div class="chat-actions">
+                            <button class="chat-action-btn" onclick="renameChat('${chat.id}', event)" title="Renomear">✏️</button>
+                            <button class="chat-action-btn" onclick="deleteChat('${chat.id}', event)" title="Excluir">🗑️</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showWelcomeMessage() {
+            const messagesContainer = document.getElementById('chatMessages');
+            messagesContainer.innerHTML = `
+                <div class="welcome-message">
+                    <h1>🎓 IPVC - AI Assistant </h1>
+                    <p>Seu Assistente de IA para Regulamentos e Políticas da Universidade</p>
+                    <p>Estou aqui para ajudá-lo a entender os regulamentos, políticas e procedimentos da universidade. Até para te ajudar a estudar. Pergunte qualquer coisa sobre requisitos acadêmicos, prazos, regras do campus, serviços estudantis, ou altera o modelo para uma disciplina especifica do seu curso, treinados pelos próprios professores para auxio na sua aprendizagem.</p>
+                    
+                    <div class="sample-questions">
+                        ${sampleQuestions.map(q => `
+                            <div class="sample-question" onclick="askSampleQuestion('${q.question}')">
+                                <h4>${q.title}</h4>
+                                <p>${q.question}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+
+        function clearChatList() {
+            if (confirm('Tem certeza que deseja limpar todo o histórico de chats?')) {
+                chats = [];
+                saveChats();
+                createNewChat();
+                showNotification('Histórico de chats limpo com sucesso!');
+            }
+        }
+
+        function getCurrentChat() {
+            return chats.find(c => c.id === currentChatId);
+        }
+
+        function updateCurrentChat(userMessage, botResponse, contextHtml) {
+            const chat = getCurrentChat();
+            if (!chat) return;
+            
+            // Adicionar mensagem do usuário
+            chat.messages.push({
+                content: userMessage,
+                isUser: true,
+                contextHtml: null,
+                timestamp: new Date().toISOString()
+            });
+            
+            // Adicionar resposta do bot
+            chat.messages.push({
+                content: botResponse,
+                isUser: false,
+                contextHtml: contextHtml,
+                timestamp: new Date().toISOString()
+            });
+            
+            // Atualizar último mensaje e título se necessário
+            chat.lastMessage = userMessage.length > 50 ? userMessage.substring(0, 50) + '...' : userMessage;
+            
+            // Auto-gerar título baseado na primeira mensagem se ainda for "Nova Conversa"
+            if (chat.title === 'Nova Conversa' && chat.messages.length >= 2) {
+                chat.title = userMessage.length > 30 ? userMessage.substring(0, 30) + '...' : userMessage;
+            }
+            
+            // Atualizar histórico de conversa
+            chat.conversationHistory = conversationHistory;
+            
+            saveChats();
+            renderChatList();
+        }
+
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        //                          UTILITY - Auto-Resize & Word Count
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        function autoResize(textarea) {
+            textarea.style.height = 'auto';
+            textarea.style.height = Math.min(textarea.scrollHeight, 120) + 'px';
+        }
+
+        document.getElementById('messageInput').addEventListener('input', function() {
+            autoResize(this);
+            updateWordCount();
+        });
+
+        document.getElementById('messageInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        function updateWordCount() {
+            const input = document.getElementById('messageInput');
+            const words = input.value.trim().split(/\s+/).filter(w => w.length > 0).length;
+            const countEl = document.getElementById('wordCount');
+            countEl.textContent = `${words}/2000`;
+            if (words > 2000) {
+                countEl.style.color = '#dc3545';
+            } else {
+                countEl.style.color = '#6c757d';
+            }
+        }
+
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        //                          Quick Actions: Prefill Input
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        function insertText(prefix) {
+            const input = document.getElementById('messageInput');
+            input.value = prefix;
+            input.focus();
+            autoResize(input);
+            updateWordCount();
+        }
+
+        function askSampleQuestion(question) {
+            document.getElementById('messageInput').value = question;
+            autoResize(document.getElementById('messageInput'));
+            updateWordCount();
+            sendMessage();
+        }
+
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        //                          Theme Toggle & Persistent Settings
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        function loadSettings() {
+            // Dark Mode
+            if (settings.darkMode) {
+                document.body.classList.add('dark-theme');
+                document.getElementById('darkModeToggle').classList.add('active');
+                document.getElementById('themeToggleBtn').textContent = '☀️';
+            } else {
+                document.body.classList.remove('dark-theme');
+                document.getElementById('darkModeToggle').classList.remove('active');
+                document.getElementById('themeToggleBtn').textContent = '🌙';
+            }
+
+            // Auto-Save Chats
+            if (settings.autoSave) {
+                document.getElementById('autoSaveToggle').classList.add('active');
+            } else {
+                document.getElementById('autoSaveToggle').classList.remove('active');
+            }
+
+            // Voice Input
+            if (settings.voiceEnabled) {
+                document.getElementById('voiceToggle').classList.add('active');
+                document.getElementById('voiceBtn').disabled = false;
+                document.getElementById('voiceBtn').title = 'Entrada de Voz';
+            } else {
+                document.getElementById('voiceToggle').classList.remove('active');
+                document.getElementById('voiceBtn').disabled = true;
+                document.getElementById('voiceBtn').title = 'Entrada de Voz Desabilitada';
+            }
+
+            // Sound Notifications
+            if (settings.soundEnabled) {
+                document.getElementById('soundToggle').classList.add('active');
+            } else {
+                document.getElementById('soundToggle').classList.remove('active');
+            }
+        }
+
+        function toggleTheme() {
+            settings.darkMode = !settings.darkMode;
+            localStorage.setItem('unibotSettings', JSON.stringify(settings));
+            loadSettings();
+        }
+
+        function toggleAutoSave() {
+            settings.autoSave = !settings.autoSave;
+            localStorage.setItem('unibotSettings', JSON.stringify(settings));
+            loadSettings();
+        }
+
+        function toggleVoiceFeature() {
+            settings.voiceEnabled = !settings.voiceEnabled;
+            localStorage.setItem('unibotSettings', JSON.stringify(settings));
+            loadSettings();
+        }
+
+        function toggleSound() {
+            settings.soundEnabled = !settings.soundEnabled;
+            localStorage.setItem('unibotSettings', JSON.stringify(settings));
+            loadSettings();
+        }
+
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        //                          Sidebar: Toggle, Chat History, Clear
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        function toggleSidebar() {
+            const sb = document.getElementById('sidebar');
+            sb.classList.toggle('open');
+        }
+
+        function toggleChatSidebar() {
+            const chatSb = document.getElementById('chatSidebar');
+            chatSb.classList.toggle('open');
+        }
+
+        function updateChatHistory() {
+            const container = document.getElementById('chatHistory');
+            container.innerHTML = '';
+            if (!chatHistory.length) {
+                const p = document.createElement('p');
+                p.textContent = 'Nenhuma consulta anterior.';
+                p.style.fontSize = '0.9rem';
+                p.style.color = settings.darkMode ? '#ccc' : '#6c757d';
+                container.appendChild(p);
+                return;
+            }
+            chatHistory.slice().reverse().forEach((entry, idx) => {
+                const item = document.createElement('div');
+                item.className = 'history-item';
+                item.onclick = () => {
+                    document.getElementById('messageInput').value = entry;
+                    autoResize(document.getElementById('messageInput'));
+                    updateWordCount();
+                    toggleSidebar();
+                };
+
+                const title = document.createElement('div');
+                title.className = 'history-item-title';
+                title.textContent = 'Consulta:';
+                item.appendChild(title);
+
+                const preview = document.createElement('div');
+                preview.className = 'history-item-preview';
+                preview.textContent = entry;
+                item.appendChild(preview);
+
+                container.appendChild(item);
+            });
+        }
+
+        function clearHistory() {
+            if (!confirm('Limpar todo o histórico de consultas salvas?')) return;
+            chatHistory = [];
+            localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+            updateChatHistory();
+            showNotification('Histórico limpo com sucesso!');
+        }
+
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        //                          Export Chat (as .txt)
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        function exportChat() {
+            const currentChat = getCurrentChat();
+            if (!currentChat || !currentChat.messages.length) {
+                showNotification('Nada para exportar.', true);
+                return;
+            }
+            
+            let textOutput = `Chat: ${currentChat.title}\nData: ${new Date(currentChat.timestamp).toLocaleString('pt-PT')}\n\n`;
+            
+            currentChat.messages.forEach(msg => {
+                const avatar = msg.isUser ? 'Você: ' : 'UniBot: ';
+                const content = msg.content.replace(/<br>/g, '\n').replace(/<[^>]*>/g, '');
+                textOutput += avatar + content + '\n\n';
+            });
+            
+            const blob = new Blob([textOutput], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `unibot_chat_${currentChat.title.replace(/[^a-zA-Z0-9]/g, '_')}_${new Date().toISOString().slice(0,19).replace(/[:T]/g, '-')}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('Chat exportado com sucesso!');
+        }
+
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        //                          Notification Toast
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        function showNotification(message, isError = false) {
+            const notif = document.getElementById('notification');
+            notif.textContent = message;
+            notif.style.background = isError ? '#dc3545' : '#4a90e2';
+            notif.classList.add('show');
+            setTimeout(() => {
+                notif.classList.remove('show');
+            }, 3000);
+        }
+
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        //                          File Attachment (Stub)
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        function openFileDialog() {
+            document.getElementById('fileInput').click();
+        }
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            showNotification('Anexo de arquivos ainda não é suportado.', true);
+            setTimeout(() => {
+                document.getElementById('fileInput').value = '';
+            }, 100);
+        }
+
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        //                          Voice Recording Toggle
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        function toggleVoiceRecording() {
+            if (!settings.voiceEnabled) return;
+            if (isRecording) {
+                recognition.stop();
+                isRecording = false;
+                document.getElementById('voiceBtn').classList.remove('recording');
+            } else {
+                if (recognition) {
+                    recognition.start();
+                    isRecording = true;
+                    document.getElementById('voiceBtn').classList.add('recording');
+                } else {
+                    showNotification('Reconhecimento de voz não suportado neste navegador.', true);
+                }
+            }
+        }
+
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        //                          Statistics Updater
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        function updateStatistics() {
+            document.getElementById('messageCount').textContent = messageCount;
+            if (responseTimes.length) {
+                const avg = Math.round(responseTimes.reduce((a,b) => a+b, 0) / responseTimes.length);
+                document.getElementById('avgResponseTime').textContent = avg;
+            } else {
+                document.getElementById('avgResponseTime').textContent = '--';
+            }
+        }
+
+        function startSessionTimer() {
+            setInterval(() => {
+                const elapsed = Date.now() - sessionStartTime;
+                const minutes = Math.floor(elapsed / 60000).toString().padStart(2, '0');
+                const seconds = Math.floor((elapsed % 60000) / 1000).toString().padStart(2, '0');
+                document.getElementById('sessionDuration').textContent = `${minutes}:${seconds}`;
+            }, 1000);
+        }
+
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+        //                          Send Message & Handle Backend Response
+        // ────────────────────────────────────────────────────────────────────────────────────────────
+
+        async function sendMessage() {
+            const sendButton = document.getElementById('sendButton');
+
+            // Se já estiver processando, interrompe
+            if (isProcessing) {
+                if (abortController) {
+                    abortController.abort();
+                    abortController = null;
+                }
+                isProcessing = false;
+                updateSendButton();
+                hideTypingIndicator();
+                addMessageToUI("❌ Resposta cancelada pelo usuário.", false, null, true);
+                return;
+            }
+
+            const inputEl = document.getElementById('messageInput');
+            const userMessage = inputEl.value.trim();
+            if (!userMessage) return;
+
+            // Certificar que há um chat atual
+            if (!currentChatId) {
+                createNewChat();
+            }
+
+            isProcessing = true;
+            updateSendButton();
+
+            addMessageToUI(userMessage, true, null, true);
+            messageCount++;
+            updateStatistics();
+
+            if (settings.autoSave) {
+                chatHistory.push(userMessage);
+                localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+                updateChatHistory();
+            }
+
+            inputEl.value = '';
+            autoResize(inputEl);
+            updateWordCount();
+
+            showTypingIndicator();
+            const startTime = Date.now();
+
+            abortController = new AbortController();
+
+            try {
+                const response = await fetch('http://localhost:8000/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    signal: abortController.signal,
+                    body: JSON.stringify({
+                        user_input: userMessage,
+                        conversation_history: conversationHistory
+                    }),
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro do servidor');
+                }
+
+                const data = await response.json();
+                hideTypingIndicator();
+
+                conversationHistory = data.conversation_history;
+
+                const contextHtml = data.context?.length
+                    ? data.context.join('<br><br>')
+                    : null;
+
+                addMessageToUI(data.response, false, contextHtml, true);
+                
+                // Atualizar o chat atual
+                updateCurrentChat(userMessage, data.response, contextHtml);
+
+                const rt = Date.now() - startTime;
+                responseTimes.push(rt);
+                updateStatistics();
+
+                if (settings.soundEnabled) {
+                    const audio = new Audio('https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg');
+                    audio.play().catch(() => {});
+                }
+            } catch (err) {
+                hideTypingIndicator();
+                if (err.name === "AbortError") {
+                    // Resposta já foi adicionada acima
+                } else {
+                    addMessageToUI("⚠️ Ocorreu um erro. Tente novamente.", false, null, true);
+                    console.error(err);
+                }
+            }
+
+            isProcessing = false;
+            abortController = null;
+            updateSendButton();
+        }
+
+        function updateSendButton() {
+            const btn = document.getElementById("sendButton");
+            if (isProcessing) {
+                btn.innerText = "⛔";
+                btn.title = "Parar resposta";
+                btn.disabled = false;
+            } else {
+                btn.innerText = "✉️";
+                btn.title = "Enviar mensagem";
+                btn.disabled = false;
+            }
+        }
+
+        function addMessageToUI(content, isUser, contextHtml, saveToChat = false) {
+            const container = document.getElementById('chatMessages');
+            const welcome = container.querySelector('.welcome-message');
+            if (welcome) welcome.style.display = 'none';
+
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${isUser ? 'user' : 'assistant'}`;
+
+            const avatar = document.createElement('div');
+            avatar.className = 'message-avatar';
+            avatar.textContent = isUser ? 'You' : '🎓';
+
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+
+            if (contextHtml && !isUser) {
+                const ctx = document.createElement('div');
+                ctx.className = 'context-section';
+                ctx.innerHTML = `<div class="context-label">📄 Regulamentos Universitários Relevantes:</div><div>${contextHtml}</div>`;
+                contentDiv.appendChild(ctx);
+            }
+
+            const textNode = document.createElement('div');
+            textNode.innerHTML = content.replace(/\n/g, '<br>');
+            contentDiv.appendChild(textNode);
+
+            msgDiv.appendChild(avatar);
+            msgDiv.appendChild(contentDiv);
+
+            container.appendChild(msgDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Função auxiliar para adicionar mensagem (compatibilidade)
+        function addMessage(content, isUser, contextHtml) {
+            addMessageToUI(content, isUser, contextHtml, true);
+        }
+
+        function showTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'flex';
+        }
+
+        function hideTypingIndicator() {
+            document.getElementById('typingIndicator').style.display = 'none';
+        }
+
+// ────────────────────────────────────────────────────────────────────────────────────────────
+//                          Sistema de Disciplinas (Mantido do código original)
+// ────────────────────────────────────────────────────────────────────────────────────────────
+
+        const data = {
+            ESTG: {
+                "Engenharia Informática": {
+                    "Programação Web": "Modelo: Trabalhos práticos, 2 testes, nota mínima 9.5.",
+                    "Bases de Dados": "Modelo: Projeto + Exame final, nota mínima 10.",
+                    "Investigação Operacional": "Modelo: Projeto + Exame final, nota mínima 10.",
+                    "Sistemas Operativos": "Modelo: Projeto + Exame final, nota mínima 10.",
+                    "Redes de Computadores": "Modelo: Projeto + Exame final, nota минима 10.",
+                    "Engenharia de Software": "Modelo: Projeto + Exame final, nota минима 10.",
+                    "Sistemas de Informação": "Modelo: Projeto + Exame final, nota минима 10.",
+                    "Engenharia de Software II": "Modelo: Projeto + Exame final, nota минима 10.",
+                    "Algoritmos e Estruturas de Dados": "Modelo: Projeto + Exame final, nota минима 10.",
+                    "Algebra Linear": "Modelo: Projeto + Exame final, nota минима 10.",
+                    "Analise Matemática": "Modelo: Projeto + Exame final, nota минима 10.",
+
+                },
+                "Engenharia Eletrotécnica": {
+                    "Eletrónica I": "Modelo: Laboratórios semanais + exame final.",
+                    "Circuitos Elétricos": "Modelo: Testes e simulações."
+                }
+            },
+            ESS: {
+                "Enfermagem": {
+                    "Anatomia": "Modelo: Avaliação contínua + exame prático.",
+                    "Ética em Saúde": "Modelo: Trabalhos escritos + apresentação oral."
+                }
+            },
+            ESE: {
+                "Educação Básica": {
+                    "Psicologia do Desenvolvimento": "Modelo: Testes + Relatórios.",
+                    "Didática da Matemática": "Modelo: Projetos em grupo + observação prática."
+                }
+            }
+        };
+
+        function renderCourses() {
+            const institution = document.getElementById('institutionSelect').value;
+            const courseSelect = document.getElementById('courseSelect');
+            const subjectContainer = document.getElementById('subjectListContainer');
+            const modelDiv = document.getElementById('subjectModel');
+
+            courseSelect.innerHTML = '<option value="">-- Escolha --</option>';
+            subjectContainer.innerHTML = '';
+            modelDiv.textContent = '';
+
+            if (institution && data[institution]) {
+                Object.keys(data[institution]).forEach(course => {
+                    const option = document.createElement('option');
+                    option.value = course;
+                    option.textContent = course;
+                    courseSelect.appendChild(option);
+                });
+                courseSelect.disabled = false;
+            } else {
+                courseSelect.disabled = true;
+            }
+        }
+
+        function renderSubjectsFromSelect() {
+            const institution = document.getElementById('institutionSelect').value;
+            const course = document.getElementById('courseSelect').value;
+            renderSubjects(institution, course);
+        }
+
+
+        function renderSubjects(institution, course) {
+            const subjectContainer = document.getElementById('subjectListContainer');
+            const modelDiv = document.getElementById('subjectModel');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+
+            subjectContainer.innerHTML = '';
+            modelDiv.textContent = '';
+
+            const subjects = data[institution][course];
+            const ul = document.createElement('ul');
+            ul.className = 'subject-list';
+
+            Object.keys(subjects).forEach(subject => {
+                const li = document.createElement('li');
+                li.textContent = subject;
+                li.className = 'subject-item';
+                li.onclick = () => {
+                    const filename = subject.replace(/\s+/g, '_').toLowerCase() + ".txt";
+
+                    // Mostrar o overlay de loading
+                    loadingOverlay.style.display = 'flex';
+
+                    fetch('/change_vault', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ filename: filename })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Esconder o overlay de loading
+                        loadingOverlay.style.display = 'none';
+
+                        if(data.success){
+                            alert(`Arquivo ${filename} carregado com sucesso!`);
+                        } else {
+                            alert("Erro ao carregar dados da disciplina: " + data.error);
+                        }
+                    })
+                    .catch(error => {
+                        loadingOverlay.style.display = 'none';
+                        alert("Erro na requisição: " + error.message);
+                    });
+                };
+
+                ul.appendChild(li);
+            });
+
+            subjectContainer.appendChild(ul);
+        }
+
+
+
+    </script>
+</body>
+</html>

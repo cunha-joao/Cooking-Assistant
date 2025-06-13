@@ -1,0 +1,129 @@
+Programa da Unidade Curricular
+Curso
+Unidade Curricular
+Ano
+Periodo
+ECTS
+9119 - Engenharia Informática
+3003024 - Integração de Sistemas
+3
+S1
+5.00
+ 
+T
+TP
+TC
+P
+PL
+L
+S
+E
+EC
+O
+OT
+Horas de Contacto
+.00
+32.00
+.00
+.00
+32.00
+.00
+.00
+.00
+.00
+.00
+.00
+Equipa Docente
+Nome
+E-mail
+Carga Letiva na UC
+Responsável
+Jorge Manuel Ferreira Barbosa Ribeiro
+jribeiro@estg.ipvc.pt
+32.00
+Docente
+Leonardo Fernandes Magalhães
+96.00
+Resumo
+O estudo desta unidade curricular está centrado nos seguintes tópicos: identificar as necessidades da Integração dos Sistemas de Informação, identificar os tipos de integração de sistemas, caracterizar geograficamente a integração dos sistemas de informação, identificar as tecnologias de integração, analisar os Arquiteturas Orientadas aos Serviços e a sua aplicação e avaliação na integração e interoperabilidade dos sistemas de informação em contextos reais.
+Objetivos da Aprendizagem
+1- O estudo desta unidade curricular está centrado nos seguintes tópicos: a. Identificar as necessidades da Integração dos Sistemas de Informação;
+1- b. Identificar os tipos de integração de Sistemas de Informação;
+1- c. Caracterizar geograficamente a integração dos Sistemas de Informação;
+1- d. Identificar as tecnologias de integração;
+1- e. Analisar as Arquiteturas Orientadas aos Serviços e a sua aplicação;
+1- f. Avaliar a integração dos Sistemas de Informação em contextos reais.
+Conteudos Programáticos
+Horas
+- 1. Integração de Sistemas e Tecnologias
+4.00
+- 1.1 Integração de Sistemas de Informação (SI)
+.00
+- 1.1.1Tipos de Integração de SI
+.00
+- 1.1.2 Plataformas de integração
+.00
+- 1.1.3 O Impacto da Internet
+.00
+- 2. Tecnologias de Integração
+4.00
+- 2.1 Integração de Processos e Aplicações de Integração
+.00
+- 2.1.1 Integração no Computador
+.00
+- 2.1.2 Integração na Organização
+.00
+- 2.1.3 Integração entre Empresas
+.00
+- 3. Tecnologia Internet para Integração
+8.00
+- 3.1 Arquitetura Orientada aos Serviços: Tipificação e Orquestração de serviços
+.00
+- 3.2 Web Services: Introdução e Ciclo de Vida
+.00
+- 3.3 Standards: UDDI; SOAP; WSDL e outros
+.00
+- 3.4 XML: Introdução; XML Schema; Desenho de estruturas de dados
+8.00
+- 4.Web Services como paradigma de integração
+8.00
+- 5.Integração e interoperabilidade com Sistemas de Informação
+8.00
+- 6. Interoperabilidade entre vários tipos de sistemas e Tecnologias (dispositivos RFID, Bluetooth, dispositivos electrónicos como Raspberry Pi/Arduino e com IoT APIs)
+8.00
+- 7. Integração e Interoperabilidade com Sistemas de Informação Geográficos. 
+16.00
+Metodologias de Ensino
+Exposição teórica. Trabalho em grupo. Prática laboratorial. Estudo de casos.
+Avaliação
+Modalidade:
+
+Avaliação periódica: Dois trabalhos práticos associados aos conteúdos da unidade curricular
+TP1 - Base de Conhecimentos - Sistemas Distribuídos:
+TP1 - A - Registo de evidências de execução de tutoriais nas aulas - Execução das implementações em Java de tutoriais sobre SOCKETS e RPC ? Remote Procedure Call.
+TP1 - B - Registos de evidências de implementação em PYTHON de SOCKETS, RPC e XML Parsing (XPATH/XQuery).
+
+TP2 - Desenvolvimento de plataforma de Integração e Interoperabilidade com Informação Não Alfanumérica (ex. informação geográfica - desenvolvimento de uma plataforma WebSIG com processo de operações geográficas e interoperabilidade/Integração de informação via XML e RPC.
+
+
+Nota Final: 10% * TP1-A + (40%-50%) * TP1-B + (40%-50%) * TP2
+
+Em que a nota de TP1-A, TP1-B e TP2 terá de ser maior de 10 valores;
+
+Época normal: exame final (acessível apenas a quem não tenha comparecido a nenhum momento de avaliação durante o período letivo, e que não tenha reprovado por faltas).
+
+Época de Recurso ou Época Especial: 100% da defesa de um trabalho final individual (a combinar com o docente pelo menos 1 mês antes da época a que o aluno se submete para verificação de todos os requisitos necessários). Opcionalmente um exame global correspondendo a 100% dos conteúdos programáticos.
+Bibliografia Principal
+Silva, M. M., Integração de Sistemas de Informação, FCA Editora de Informática,2003.
+Victor Martins, Integração de Sistemas de Informação, Edições Silabo, 2006.
+Segurança no Software - Miguel Pupo Correia / Paulo Jorge Sousa, FCA Editora de Informática 2010.
+Segurança em Redes Informáticas - 3ª Ed. Act. e Aum. - André Zúquete, FCA Editora de Informática,2008.
+Rodrigues, L.S., Arquitecturas de Sistemas de Informação, FCA Editora de Informática,2002.
+Bibliografia Complementar
+Informação complementar disponibilizado na página da unidade curricular na plataforma de e-learning.
+FOR-03/01-PTPrograma da Unidade Curricular Curso Unidade Curricular Ano Periodo ECTS 9119 - Engenharia Informática 3003024 - Integração de Sistemas 3 S1 5.00 T TP TC P PL L S E EC O OT Horas de Contacto .00 32.00 .00 .00 32.00 .00 .00 .00 .00 .00 .00 Equipa Docente Nome E-mail Carga Letiva na UC Responsável Jorge Manuel Ferreira Barbosa Ribeiro jribeiro@estg.ipvc.pt 32.00 Docente Leonardo Fernandes Magalhães 96.00 Resumo O estudo desta unidade curricular está centrado nos seguintes tópicos: identificar as necessidades da Integração dos Sistemas de Informação, identificar os tipos de integração de sistemas, caracterizar geograficamente a integração dos sistemas de informação, identificar as tecnologias de integração, analisar os Arquiteturas Orientadas aos Serviços e a sua aplicação e avaliação na integração e interoperabilidade dos sistemas de informação em contextos reais.Objetivos da Aprendizagem 1- O estudo desta unidade curricular está centrado nos seguintes tópicos: a.
+Identificar as necessidades da Integração dos Sistemas de Informação; 1- b. Identificar os tipos de integração de Sistemas de Informação; 1- c.Caracterizar geograficamente a integração dos Sistemas de Informação; 1- d.Identificar as tecnologias de integração; 1- e.Analisar as Arquiteturas Orientadas aos Serviços e a sua aplicação; 1- f.Avaliar a integração dos Sistemas de Informação em contextos reais.Conteudos Programáticos Horas - 1.Integração de Sistemas e Tecnologias 4.00 - 1.1 Integração de Sistemas de Informação (SI) .00 - 1.1.1Tipos de Integração de SI .00 - 1.1.2 Plataformas de integração .00 - 1.1.3 O Impacto da Internet .00 - 2.Tecnologias de Integração 4.00 - 2.1 Integração de Processos e Aplicações de Integração .00 - 2.1.1 Integração no Computador .00 - 2.1.2 Integração na Organização .00 - 2.1.3 Integração entre Empresas .00 - 3.
+Tecnologia Internet para Integração 8.00 - 3.1 Arquitetura Orientada aos Serviços: Tipificação e Orquestração de serviços .00 - 3.2 Web Services: Introdução e Ciclo de Vida .00 - 3.3 Standards: UDDI; SOAP; WSDL e outros .00 - 3.4 XML: Introdução; XML Schema; Desenho de estruturas de dados 8.00 - 4.Web Services como paradigma de integração 8.00 - 5.Integração e interoperabilidade com Sistemas de Informação 8.00 - 6. Interoperabilidade entre vários tipos de sistemas e Tecnologias (dispositivos RFID, Bluetooth, dispositivos electrónicos como Raspberry Pi/Arduino e com IoT APIs) 8.00 - 7.Integração e Interoperabilidade com Sistemas de Informação Geográficos.16.00 Metodologias de Ensino Exposição teórica.Trabalho em grupo.Prática laboratorial.Estudo de casos.
+Avaliação Modalidade: Avaliação periódica: Dois trabalhos práticos associados aos conteúdos da unidade curricular TP1 - Base de Conhecimentos - Sistemas Distribuídos: TP1 - A - Registo de evidências de execução de tutoriais nas aulas - Execução das implementações em Java de tutoriais sobre SOCKETS e RPC ? Remote Procedure Call.TP1 - B - Registos de evidências de implementação em PYTHON de SOCKETS, RPC e XML Parsing (XPATH/XQuery).TP2 - Desenvolvimento de plataforma de Integração e Interoperabilidade com Informação Não Alfanumérica (ex.informação geográfica - desenvolvimento de uma plataforma WebSIG com processo de operações geográficas e interoperabilidade/Integração de informação via XML e RPC.
+Nota Final: 10% * TP1-A + (40%-50%) * TP1-B + (40%-50%) * TP2 Em que a nota de TP1-A, TP1-B e TP2 terá de ser maior de 10 valores; Época normal: exame final (acessível apenas a quem não tenha comparecido a nenhum momento de avaliação durante o período letivo, e que não tenha reprovado por faltas). Época de Recurso ou Época Especial: 100% da defesa de um trabalho final individual (a combinar com o docente pelo menos 1 mês antes da época a que o aluno se submete para verificação de todos os requisitos necessários).Opcionalmente um exame global correspondendo a 100% dos conteúdos programáticos.Bibliografia Principal Silva, M.M., Integração de Sistemas de Informação, FCA Editora de Informática,2003.Victor Martins, Integração de Sistemas de Informação, Edições Silabo, 2006.Segurança no Software - Miguel Pupo Correia / Paulo Jorge Sousa, FCA Editora de Informática 2010.Segurança em Redes Informáticas - 3ª Ed.Act.e Aum.- André Zúquete, FCA Editora de Informática,2008.
+Rodrigues, L.S., Arquitecturas de Sistemas de Informação, FCA Editora de Informática,2002. Bibliografia Complementar Informação complementar disponibilizado na página da unidade curricular na plataforma de e-learning.FOR-03/01-PT
