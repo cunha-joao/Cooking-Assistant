@@ -222,9 +222,21 @@ def start_cli():
         response = ollama_chat(user_input, system_message, vault_embeddings_tensor, vault_content, args.model, conversation_history)
         print(NEON_GREEN + "Response: \n\n" + response + RESET_COLOR)
 
+def chat_from_web(user_input):
+    global vault_embeddings_tensor, vault_content, conversation_history, system_message, args
+    response = ollama_chat(
+        user_input,
+        system_message,
+        vault_embeddings_tensor,
+        vault_content,
+        args.model,
+        conversation_history
+    )
+    return response
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Local RAG Chatbot (Flask)")
-    parser.add_argument("--model", default="llama3.2", help="Model to use with Ollama")
+    parser.add_argument("--model", default="llama3", help="Model to use with Ollama")
     parser.add_argument("--mode", choices=["cli", "api"], default="cli", help="Run in CLI or API mode")
     parser.add_argument("--port", type=int, default=8000, help="Port to run Flask app")
     args = parser.parse_args()
