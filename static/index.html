@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>IPVC - AI Assistant</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
     <div class="chat-container">
         <!-- ─────────────────────────────────────────────────────────────────────────────────────────────
-                          Header + Controles
+                          Header + Controls
         ───────────────────────────────────────────────────────────────────────────────────────────── -->
         <div class="header">
             <div class="controls">
@@ -21,24 +21,24 @@
         </div>
     
         <!-- ─────────────────────────────────────────────────────────────────────────────────────────────
-                          Mensagens do Chat
+                          Chat Messages
         ───────────────────────────────────────────────────────────────────────────────────────────── -->
         <div class="chat-messages" id="chatMessages">
             <div class="welcome-message">
-                <h1>🎓 IPVC - AI Assistant</h1>
+                <h1>Cookarino - Your personal AI Assistant Chef</h1>
                 <p>O Teu Assistente de IA para Regulamentos e Políticas da Universidade</p>
                 <p>Estou aqui para ajudá-lo a entender os regulamentos, políticas e procedimentos da universidade. Até para te ajudar a estudar. Pergunte qualquer coisa sobre requisitos acadêmicos, prazos, regras do campus, serviços estudantis, ou altera o modelo para uma disciplina especifica do seu curso, treinados pelos próprios professores para auxio na sua aprendizagem.</p>
                 
                 <div class="sample-questions">
-                    <div class="sample-question" onclick="askSampleQuestion('Quais são os requisitos para graduação no meu curso?')">
-                        <h4>📚 Requisitos Acadêmicos</h4>
+                    <div class="sample-question" onclick="askSampleQuestion('Recomenda-me uma receita aleatória para almoço/jantar.')">
+                        <h4>📚 Almoço/Jantar</h4>
                         <p>Quais são os requisitos para graduação no meu curso?</p>
                     </div>
-                    <div class="sample-question" onclick="askSampleQuestion('Como faço para solicitar licença acadêmica ou adiamento?')">
+                    <div class="sample-question" onclick="askSampleQuestion('Recomenda-me uma receita aleatório de sobremesa.')">
                         <h4>📝 Procedimentos Acadêmicos</h4>
                         <p>Como faço para solicitar licença acadêmica ou adiamento?</p>
                     </div>
-                    <div class="sample-question" onclick="askSampleQuestion('Quais são as políticas e procedimentos de habitação no campus?')">
+                    <div class="sample-question" onclick="askSampleQuestion('Recomenda-me uma receita de bebida.')">
                         <h4>🏠 Vida no Campus</h4>
                         <p>Quais são as políticas e procedimentos de habitação no campus?</p>
                     </div>
@@ -1047,9 +1047,6 @@
 
             subjectContainer.appendChild(ul);
         }
-
-
-
     </script>
 </body>
 </html>
