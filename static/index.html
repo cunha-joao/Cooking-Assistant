@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>IPVC - AI Assistant</title>
-    <link rel="stylesheet" href="/static/style.css">
+    <title>Cookarino - Your AI Cooking Assistant</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="chat-container">
@@ -14,8 +14,8 @@
         <div class="header">
             <div class="controls">
                 <button class="control-btn" onclick="toggleChatSidebar()" title="Chats">💬</button>
-                <button class="control-btn theme-toggle" onclick="toggleTheme()" id="themeToggleBtn" title="Alternar Modo">🌙</button>
-                <button class="control-btn" onclick="exportChat()" title="Exportar Conversa">📥</button>
+                <button class="control-btn theme-toggle" onclick="toggleTheme()" id="themeToggleBtn" title="Change Mode">🌙</button>
+                <button class="control-btn" onclick="exportChat()" title="Export">📥</button>
                 <button class="control-btn" onclick="toggleSidebar()" title="Menu">☰</button>
             </div>
         </div>
@@ -25,36 +25,10 @@
         ───────────────────────────────────────────────────────────────────────────────────────────── -->
         <div class="chat-messages" id="chatMessages">
             <div class="welcome-message">
-                <h1>Cookarino - Your personal AI Assistant Chef</h1>
-                <p>O Teu Assistente de IA para Regulamentos e Políticas da Universidade</p>
-                <p>Estou aqui para ajudá-lo a entender os regulamentos, políticas e procedimentos da universidade. Até para te ajudar a estudar. Pergunte qualquer coisa sobre requisitos acadêmicos, prazos, regras do campus, serviços estudantis, ou altera o modelo para uma disciplina especifica do seu curso, treinados pelos próprios professores para auxio na sua aprendizagem.</p>
-                
-                <div class="sample-questions">
-                    <div class="sample-question" onclick="askSampleQuestion('Recomenda-me uma receita aleatória para almoço/jantar.')">
-                        <h4>📚 Almoço/Jantar</h4>
-                        <p>Quais são os requisitos para graduação no meu curso?</p>
-                    </div>
-                    <div class="sample-question" onclick="askSampleQuestion('Recomenda-me uma receita aleatório de sobremesa.')">
-                        <h4>📝 Procedimentos Acadêmicos</h4>
-                        <p>Como faço para solicitar licença acadêmica ou adiamento?</p>
-                    </div>
-                    <div class="sample-question" onclick="askSampleQuestion('Recomenda-me uma receita de bebida.')">
-                        <h4>🏠 Vida no Campus</h4>
-                        <p>Quais são as políticas e procedimentos de habitação no campus?</p>
-                    </div>
-                    <div class="sample-question" onclick="askSampleQuestion('Como funciona o processo de conduta e disciplina estudantil?')">
-                        <h4>⚖️ Conduta Estudantil</h4>
-                        <p>Como funciona o processo de conduta e disciplina estudantil?</p>
-                    </div>
-                    <div class="sample-question" onclick="askSampleQuestion('Quais opções de auxílio financeiro estão disponíveis para estudantes?')">
-                        <h4>💰 Auxílio Financeiro</h4>
-                        <p>Quais opções de auxílio financeiro estão disponíveis para estudantes?</p>
-                    </div>
-                    <div class="sample-question" onclick="askSampleQuestion('Quais são as datas e prazos acadêmicos importantes?')">
-                        <h4>📅 Datas Importantes</h4>
-                        <p>Quais são as datas e prazos acadêmicos importantes?</p>
-                    </div>
-                </div>
+                <h1>Cookarino - Your Personal AI Assistant Chef</h1>
+                <p>Your AI Assistant for new recipes and tips for cooking.</p>
+                <p>I'm here to help you learn new recipes when you're stumped and don't know what to cook 
+                    as well as give tips that can help you improve your cooking skills.</p>
             </div>
         </div>
     
@@ -62,7 +36,7 @@
                           Indicador de Digitação
         ───────────────────────────────────────────────────────────────────────────────────────────── -->
         <div class="typing-indicator" id="typingIndicator">
-            <span>A pensar</span>
+            <span>I'm thinking</span>
             <div class="typing-dots">
                 <div class="typing-dot"></div>
                 <div class="typing-dot"></div>
@@ -75,23 +49,23 @@
         ───────────────────────────────────────────────────────────────────────────────────────────── -->
         <div class="input-container">
             <div class="quick-actions">
-                <button class="quick-action-btn" onclick="insertText('Resumir ')">📄 Resumir</button>
-                <button class="quick-action-btn" onclick="insertText('Explicar ')">💡 Explicar</button>
-                <button class="quick-action-btn" onclick="insertText('Quais são os prazos para ')">⏰ Prazos</button>
-                <button class="quick-action-btn" onclick="insertText('Como faço para solicitar ')">📝 Solicitar</button>
-                <button class="quick-action-btn" onclick="insertText('Quais são os requisitos para ')">✅ Requisitos</button>
+                <button class="quick-action-btn" onclick="insertText('Give a dish with meat as one of the ingredients.')">🥩 Meat</button>
+                <button class="quick-action-btn" onclick="insertText('Give a vegetarian dish.')">🥗 Vegetarian</button>
+                <button class="quick-action-btn" onclick="insertText('Give me a recipe for a dessert.')">🍨 Dessert</button>
+                <button class="quick-action-btn" onclick="insertText('Give me a refreshing drink recipe.')">🍹 Drink</button>
+                <button class="quick-action-btn" onclick="insertText('Show me recipe for a quick and easy dish.')">⏩ Quick and Easy</button>
             </div>
             <div class="input-wrapper" id="inputWrapper">
-                <button class="attachment-btn" onclick="openFileDialog()" title="Anexar Arquivo">📎</button>
+                <button class="attachment-btn" onclick="openFileDialog()" title="Upload File">📎</button>
                 <textarea
                     class="message-input"
                     id="messageInput"
-                    placeholder="Pergunte sobre regulamentos, políticas, prazos da universidade..."
+                    placeholder="Ask me about new recipes or doubts you might have..."
                     rows="1"
                 ></textarea>
                 <div class="word-count" id="wordCount">0/2000</div>
                 <div class="input-tools">
-                    <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceRecording()" title="Entrada de Voz">🎤</button>
+                    <button class="voice-btn" id="voiceBtn" onclick="toggleVoiceRecording()" title="Voice">🎤</button>
                     <button class="send-button" id="sendButton" onclick="sendMessage()">✉️</button>
                 </div>
             </div>
@@ -99,7 +73,7 @@
     </div>
     
     <!-- ─────────────────────────────────────────────────────────────────────────────────────────────
-                      Barra Lateral
+                      Side Bar
     ───────────────────────────────────────────────────────────────────────────────────────────── -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
@@ -108,82 +82,55 @@
         </div>
         <div class="sidebar-content">
             <div class="sidebar-section">
-                <h3>🕒 Histórico de Conversa</h3>
+                <h3>🕒 Conversation History</h3>
                 <div id="chatHistory">
-                    <!-- Itens do histórico serão inseridos aqui -->
                 </div>
                 <button class="quick-action-btn" onclick="clearHistory()" style="width: 100%; margin-top: 10px;">
-                    🗑️ Limpar Histórico
+                    🗑️ Clear History
                 </button>
             </div>
             <div class="sidebar-section">
-                <h3>🤖 Escolher Assistente</h3> 
-            
-                <div class="settings-item models-select">
-                    <label for="institutionSelect">Instituição</label>
-                    <select id="institutionSelect" onchange="renderCourses()">
-                        <option value="">-- Escolha --</option>
-                        <option value="ESTG">ESTG</option>
-                        <option value="ESS">ESS</option>
-                        <option value="ESE">ESE</option>
-                    </select>
-                </div>
-            
-                <div class="settings-item models-select">
-                    <label for="courseSelect">Curso</label>
-                    <select id="courseSelect" onchange="renderSubjectsFromSelect()" disabled>
-                        <option value="">-- Escolha --</option>
-                    </select>
-                </div>
-            
-                <div id="subjectListContainer" style="margin-top: 15px;"></div>
-                <div id="subjectModel" style="margin-top: 10px; font-size: 0.9em;"></div>
-            </div> 
-            <div class="sidebar-section">
-                <h3>⚙️ Configurações</h3>
+                <h3>⚙️ Settings</h3>
                 <div class="settings-item">
-                    <span>Modo Escuro</span>
+                    <span>Dark Mode</span>
                     <div class="toggle-switch" id="darkModeToggle" onclick="toggleTheme()"></div>
                 </div>
                 <div class="settings-item">
-                    <span>Salvar Conversas Automaticamente</span>
+                    <span>Save Chat Automatically</span>
                     <div class="toggle-switch active" id="autoSaveToggle" onclick="toggleAutoSave()"></div>
                 </div>
                 <div class="settings-item">
-                    <span>Entrada de Voz</span>
+                    <span>Voice Entry</span>
                     <div class="toggle-switch active" id="voiceToggle" onclick="toggleVoiceFeature()"></div>
                 </div>
                 <div class="settings-item">
-                    <span>Notificações Sonoras</span>
+                    <span>Sound Notifications</span>
                     <div class="toggle-switch" id="soundToggle" onclick="toggleSound()"></div>
                 </div>
             </div>
             <div class="sidebar-section stats">
-                <h3>📊 Estatísticas</h3>
-                <p>Mensagens enviadas: <span id="messageCount">0</span></p>
-                <p>Tempo médio de resposta: <span id="avgResponseTime">--</span> ms</p>
-                <p>Duração da sessão: <span id="sessionDuration">00:00</span></p>
+                <h3>📊 Statistics</h3>
+                <p>Message Sent: <span id="messageCount">0</span></p>
+                <p>Average Response Time: <span id="avgResponseTime">--</span> ms</p>
+                <p>Current Session Duration: <span id="sessionDuration">00:00</span></p>
             </div>                          
         </div>
     </div> 
-    <!-- Sidebar para Chats -->
+    <!-- Chat Sidebar -->
     <div class="sidebar chat-sidebar" id="chatSidebar">
         <div class="sidebar-header">
-            <h2>Histórico de Chats</h2>
+            <h2>Chat History</h2>
             <div class="chat-header-actions">
-                <!-- Botão de fechar -->
                 <button class="close-btn" onclick="toggleChatSidebar()">×</button>
             </div>
         </div>
         <div class="sidebar-content">
-             <!-- Botão para criar nova conversa -->
-             <button class="quick-action-btn" onclick="createNewChat()" title="Novo Chat">➕ Novo Chat</button>
+             <button class="quick-action-btn" onclick="createNewChat()" title="New Chat">➕ New Chat</button>
             <div id="chatList">
-                <!-- Lista de chats vai aqui -->
-                <p>Nenhum chat salvo ainda.</p>
+                <p>No saved chats.</p>
             </div>
             <button class="quick-action-btn" onclick="clearChatList()" style="width: 100%; margin-top: 10px;">
-                🗑️ Limpar Histórico de Chats
+                🗑️ Clear Chat History
             </button>
         </div>
     </div>
@@ -193,7 +140,7 @@
     <div id="loadingOverlay" style="display:none;">
         <div class="loading-content">
             <div class="loading-spinner"></div>
-            <div class="loading-text">Carregando o modelo, por favor aguarde...</div>
+            <div class="loading-text">Loading module, please wait...</div>
         </div>
     </div>
     <!-- ─────────────────────────────────────────────────────────────────────────────────────────────
@@ -206,7 +153,7 @@
 
     <script>
         // ────────────────────────────────────────────────────────────────────────────────────────────
-        //                          JavaScript & Event Handlers - Sistema de Chats Corrigido
+        //                                JavaScript & Event Handlers
         // ────────────────────────────────────────────────────────────────────────────────────────────
 
         let conversationHistory = [];
@@ -220,37 +167,9 @@
         let recognition = null;
         let abortController = null;
 
-        // ──── SISTEMA DE CHATS ────
+        // ──── CHAT SYSTEM ────
         let chats = JSON.parse(localStorage.getItem('unibot_chats') || '[]');
         let currentChatId = null;
-
-        // Sample questions para a mensagem de boas-vindas
-        const sampleQuestions = [
-            {
-                title: "📚 Requisitos Acadêmicos",
-                question: "Quais são os requisitos para graduação no meu curso?"
-            },
-            {
-                title: "📝 Procedimentos Acadêmicos", 
-                question: "Como faço para solicitar licença acadêmica ou adiamento?"
-            },
-            {
-                title: "🏠 Vida no Campus",
-                question: "Quais são as políticas e procedimentos de habitação no campus?"
-            },
-            {
-                title: "⚖️ Conduta Estudantil",
-                question: "Como funciona o processo de conduta e disciplina estudantil?"
-            },
-            {
-                title: "💰 Auxílio Financeiro",
-                question: "Quais opções de auxílio financeiro estão disponíveis para estudantes?"
-            },
-            {
-                title: "📅 Datas Importantes",
-                question: "Quais são as datas e prazos acadêmicos importantes?"
-            }
-        ];
 
         // Initialize Web Speech recognition (if available)
         if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
@@ -288,22 +207,22 @@
             updateStatistics();
             startSessionTimer();
             
-            // Inicializar sistema de chats
+            // Initialize chat system
             initializeChatSystem();
         });
 
         // ────────────────────────────────────────────────────────────────────────────────────────────
-        //                          SISTEMA DE CHATS - FUNÇÕES PRINCIPAIS
+        //                          CHAT SYSTEM - MAIN FUNCTIONS
         // ────────────────────────────────────────────────────────────────────────────────────────────
 
         function initializeChatSystem() {
             renderChatList();
             
-            // Se não há chats, criar um novo automaticamente
+            // Create new chat if there is none
             if (chats.length === 0) {
                 createNewChat();
             } else {
-                // Selecionar o chat mais recente
+                // Select most recent
                 selectChat(chats[0].id);
             }
         }
@@ -311,7 +230,7 @@
         function createNewChat() {
             const newChat = {
                 id: Date.now().toString(),
-                title: 'Nova Conversa',
+                title: 'New Chat',
                 messages: [],
                 conversationHistory: [],
                 timestamp: new Date().toISOString(),
@@ -329,14 +248,14 @@
             const chat = chats.find(c => c.id === chatId);
             if (!chat) return;
 
-            // Restaurar histórico de conversa
+            // Restore chat history
             conversationHistory = chat.conversationHistory || [];
             
-            // Atualizar UI
+            // Update UI
             renderChatList();
             renderMessages(chat.messages);
             
-            // Fechar sidebar em mobile
+            // Close sidebar on mobile
             if (window.innerWidth <= 768) {
                 toggleChatSidebar();
             }
@@ -359,7 +278,7 @@
         function deleteChat(chatId, event) {
             event.stopPropagation();
             
-            if (confirm('Tem certeza que deseja excluir esta conversa?')) {
+            if (confirm('Are you sure you wish to delete this chat?')) {
                 chats = chats.filter(c => c.id !== chatId);
                 saveChats();
                 renderChatList();
@@ -380,7 +299,7 @@
             const chat = chats.find(c => c.id === chatId);
             if (!chat) return;
             
-            const newTitle = prompt('Digite o novo nome da conversa:', chat.title);
+            const newTitle = prompt('Type out the new name:', chat.title);
             if (newTitle && newTitle.trim()) {
                 chat.title = newTitle.trim();
                 saveChats();
@@ -398,8 +317,8 @@
             if (chats.length === 0) {
                 chatList.innerHTML = `
                     <div style="text-align: center; padding: 20px; color: #666;">
-                        <p>Nenhuma conversa ainda.</p>
-                        <p style="font-size: 0.9rem; margin-top: 5px;">Uma nova conversa será criada automaticamente!</p>
+                        <p>No chats yet.</p>
+                        <p style="font-size: 0.9rem; margin-top: 5px;">A new chat will be created automatically!</p>
                     </div>
                 `;
                 return;
@@ -418,8 +337,8 @@
                             ${chat.lastMessage ? `<div style="font-size: 0.8rem; opacity: 0.7; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${chat.lastMessage}</div>` : ''}
                         </div>
                         <div class="chat-actions">
-                            <button class="chat-action-btn" onclick="renameChat('${chat.id}', event)" title="Renomear">✏️</button>
-                            <button class="chat-action-btn" onclick="deleteChat('${chat.id}', event)" title="Excluir">🗑️</button>
+                            <button class="chat-action-btn" onclick="renameChat('${chat.id}', event)" title="Rename">✏️</button>
+                            <button class="chat-action-btn" onclick="deleteChat('${chat.id}', event)" title="Delete">🗑️</button>
                         </div>
                     </div>
                 `;
@@ -430,28 +349,18 @@
             const messagesContainer = document.getElementById('chatMessages');
             messagesContainer.innerHTML = `
                 <div class="welcome-message">
-                    <h1>🎓 IPVC - AI Assistant </h1>
-                    <p>Seu Assistente de IA para Regulamentos e Políticas da Universidade</p>
-                    <p>Estou aqui para ajudá-lo a entender os regulamentos, políticas e procedimentos da universidade. Até para te ajudar a estudar. Pergunte qualquer coisa sobre requisitos acadêmicos, prazos, regras do campus, serviços estudantis, ou altera o modelo para uma disciplina especifica do seu curso, treinados pelos próprios professores para auxio na sua aprendizagem.</p>
-                    
-                    <div class="sample-questions">
-                        ${sampleQuestions.map(q => `
-                            <div class="sample-question" onclick="askSampleQuestion('${q.question}')">
-                                <h4>${q.title}</h4>
-                                <p>${q.question}</p>
-                            </div>
-                        `).join('')}
-                    </div>
+                    <h1>👨‍🍳 Cookarino - Your AI Cooking Assistant </h1>
+                    <p>Your AI Assistant for cooking all manner of recipes</p>
                 </div>
             `;
         }
 
         function clearChatList() {
-            if (confirm('Tem certeza que deseja limpar todo o histórico de chats?')) {
+            if (confirm('Are you sure you wish to clean the chat history?')) {
                 chats = [];
                 saveChats();
                 createNewChat();
-                showNotification('Histórico de chats limpo com sucesso!');
+                showNotification('Chat history cleared!');
             }
         }
 
@@ -463,7 +372,7 @@
             const chat = getCurrentChat();
             if (!chat) return;
             
-            // Adicionar mensagem do usuário
+            // Add the user's message
             chat.messages.push({
                 content: userMessage,
                 isUser: true,
@@ -471,7 +380,7 @@
                 timestamp: new Date().toISOString()
             });
             
-            // Adicionar resposta do bot
+            // Add the bot's response
             chat.messages.push({
                 content: botResponse,
                 isUser: false,
@@ -479,15 +388,15 @@
                 timestamp: new Date().toISOString()
             });
             
-            // Atualizar último mensaje e título se necessário
+            // Update last message and title
             chat.lastMessage = userMessage.length > 50 ? userMessage.substring(0, 50) + '...' : userMessage;
             
-            // Auto-gerar título baseado na primeira mensagem se ainda for "Nova Conversa"
-            if (chat.title === 'Nova Conversa' && chat.messages.length >= 2) {
+            // Auto generate title based on latest message if it's still "New Chat"
+            if (chat.title === 'New Chat' && chat.messages.length >= 2) {
                 chat.title = userMessage.length > 30 ? userMessage.substring(0, 30) + '...' : userMessage;
             }
             
-            // Atualizar histórico de conversa
+            // Update Chat History
             chat.conversationHistory = conversationHistory;
             
             saveChats();
@@ -537,13 +446,6 @@
             updateWordCount();
         }
 
-        function askSampleQuestion(question) {
-            document.getElementById('messageInput').value = question;
-            autoResize(document.getElementById('messageInput'));
-            updateWordCount();
-            sendMessage();
-        }
-
         // ────────────────────────────────────────────────────────────────────────────────────────────
         //                          Theme Toggle & Persistent Settings
         // ────────────────────────────────────────────────────────────────────────────────────────────
@@ -570,11 +472,11 @@
             if (settings.voiceEnabled) {
                 document.getElementById('voiceToggle').classList.add('active');
                 document.getElementById('voiceBtn').disabled = false;
-                document.getElementById('voiceBtn').title = 'Entrada de Voz';
+                document.getElementById('voiceBtn').title = 'Voice Input';
             } else {
                 document.getElementById('voiceToggle').classList.remove('active');
                 document.getElementById('voiceBtn').disabled = true;
-                document.getElementById('voiceBtn').title = 'Entrada de Voz Desabilitada';
+                document.getElementById('voiceBtn').title = 'Voice Input Disabled';
             }
 
             // Sound Notifications
@@ -627,7 +529,7 @@
             container.innerHTML = '';
             if (!chatHistory.length) {
                 const p = document.createElement('p');
-                p.textContent = 'Nenhuma consulta anterior.';
+                p.textContent = 'No previous search.';
                 p.style.fontSize = '0.9rem';
                 p.style.color = settings.darkMode ? '#ccc' : '#6c757d';
                 container.appendChild(p);
@@ -645,7 +547,7 @@
 
                 const title = document.createElement('div');
                 title.className = 'history-item-title';
-                title.textContent = 'Consulta:';
+                title.textContent = 'Search:';
                 item.appendChild(title);
 
                 const preview = document.createElement('div');
@@ -658,11 +560,11 @@
         }
 
         function clearHistory() {
-            if (!confirm('Limpar todo o histórico de consultas salvas?')) return;
+            if (!confirm('Clear entire search history?')) return;
             chatHistory = [];
             localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
             updateChatHistory();
-            showNotification('Histórico limpo com sucesso!');
+            showNotification('History cleared!');
         }
 
         // ────────────────────────────────────────────────────────────────────────────────────────────
@@ -671,14 +573,14 @@
         function exportChat() {
             const currentChat = getCurrentChat();
             if (!currentChat || !currentChat.messages.length) {
-                showNotification('Nada para exportar.', true);
+                showNotification('Nothing to export.', true);
                 return;
             }
             
-            let textOutput = `Chat: ${currentChat.title}\nData: ${new Date(currentChat.timestamp).toLocaleString('pt-PT')}\n\n`;
+            let textOutput = `Chat: ${currentChat.title}\nDate: ${new Date(currentChat.timestamp).toLocaleString('pt-PT')}\n\n`;
             
             currentChat.messages.forEach(msg => {
-                const avatar = msg.isUser ? 'Você: ' : 'UniBot: ';
+                const avatar = msg.isUser ? 'You: ' : 'UniBot: ';
                 const content = msg.content.replace(/<br>/g, '\n').replace(/<[^>]*>/g, '');
                 textOutput += avatar + content + '\n\n';
             });
@@ -693,7 +595,7 @@
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
             
-            showNotification('Chat exportado com sucesso!');
+            showNotification('Chat successfully exported!');
         }
 
         // ────────────────────────────────────────────────────────────────────────────────────────────
@@ -719,7 +621,7 @@
         function handleFileUpload(event) {
             const file = event.target.files[0];
             if (!file) return;
-            showNotification('Anexo de arquivos ainda não é suportado.', true);
+            showNotification('File upload not supported.', true);
             setTimeout(() => {
                 document.getElementById('fileInput').value = '';
             }, 100);
@@ -740,7 +642,7 @@
                     isRecording = true;
                     document.getElementById('voiceBtn').classList.add('recording');
                 } else {
-                    showNotification('Reconhecimento de voz não suportado neste navegador.', true);
+                    showNotification('Voice recognition not supported on this browser.', true);
                 }
             }
         }
@@ -783,7 +685,7 @@
                 isProcessing = false;
                 updateSendButton();
                 hideTypingIndicator();
-                addMessageToUI("❌ Resposta cancelada pelo usuário.", false, null, true);
+                addMessageToUI("❌ Response canceled by user.", false, null, true);
                 return;
             }
 
@@ -791,7 +693,7 @@
             const userMessage = inputEl.value.trim();
             if (!userMessage) return;
 
-            // Certificar que há um chat atual
+            // Check for active chat
             if (!currentChatId) {
                 createNewChat();
             }
@@ -830,7 +732,7 @@
                 });
 
                 if (!response.ok) {
-                    throw new Error('Erro do servidor');
+                    throw new Error('Server Error');
                 }
 
                 const data = await response.json();
@@ -844,7 +746,7 @@
 
                 addMessageToUI(data.response, false, contextHtml, true);
                 
-                // Atualizar o chat atual
+                // AUpdate active chat
                 updateCurrentChat(userMessage, data.response, contextHtml);
 
                 const rt = Date.now() - startTime;
@@ -858,9 +760,9 @@
             } catch (err) {
                 hideTypingIndicator();
                 if (err.name === "AbortError") {
-                    // Resposta já foi adicionada acima
+                    // Response added above
                 } else {
-                    addMessageToUI("⚠️ Ocorreu um erro. Tente novamente.", false, null, true);
+                    addMessageToUI("⚠️ There's been an error. Please try again.", false, null, true);
                     console.error(err);
                 }
             }
@@ -874,11 +776,11 @@
             const btn = document.getElementById("sendButton");
             if (isProcessing) {
                 btn.innerText = "⛔";
-                btn.title = "Parar resposta";
+                btn.title = "Cancel Response";
                 btn.disabled = false;
             } else {
                 btn.innerText = "✉️";
-                btn.title = "Enviar mensagem";
+                btn.title = "Send Message";
                 btn.disabled = false;
             }
         }
@@ -893,7 +795,7 @@
 
             const avatar = document.createElement('div');
             avatar.className = 'message-avatar';
-            avatar.textContent = isUser ? 'You' : '🎓';
+            avatar.textContent = isUser ? 'You' : '👨‍🍳';
 
             const contentDiv = document.createElement('div');
             contentDiv.className = 'message-content';
@@ -901,7 +803,22 @@
             if (contextHtml && !isUser) {
                 const ctx = document.createElement('div');
                 ctx.className = 'context-section';
-                ctx.innerHTML = `<div class="context-label">📄 Regulamentos Universitários Relevantes:</div><div>${contextHtml}</div>`;
+                ctx.innerHTML = `
+                    <div class="context-label" style="cursor: pointer; font-weight: bold;">
+                        ▶ Relevant info from vault files
+                    </div>
+                    <div class="context-content" style="display: none; margin-top: 5px;">
+                        ${contextHtml}
+                    </div>
+                `;
+                
+                ctx.querySelector('.context-label').addEventListener('click', function () {
+                    const content = ctx.querySelector('.context-content');
+                    const isVisible = content.style.display === 'block';
+                    content.style.display = isVisible ? 'none' : 'block';
+                    this.textContent = (isVisible ? '▶' : '▼') + ' Relevant info from vault files';
+                });
+
                 contentDiv.appendChild(ctx);
             }
 
@@ -916,7 +833,7 @@
             container.scrollTop = container.scrollHeight;
         }
 
-        // Função auxiliar para adicionar mensagem (compatibilidade)
+        // Auxiliary function to add message (compatibility)
         function addMessage(content, isUser, contextHtml) {
             addMessageToUI(content, isUser, contextHtml, true);
         }
@@ -927,125 +844,6 @@
 
         function hideTypingIndicator() {
             document.getElementById('typingIndicator').style.display = 'none';
-        }
-
-// ────────────────────────────────────────────────────────────────────────────────────────────
-//                          Sistema de Disciplinas (Mantido do código original)
-// ────────────────────────────────────────────────────────────────────────────────────────────
-
-        const data = {
-            ESTG: {
-                "Engenharia Informática": {
-                    "Programação Web": "Modelo: Trabalhos práticos, 2 testes, nota mínima 9.5.",
-                    "Bases de Dados": "Modelo: Projeto + Exame final, nota mínima 10.",
-                    "Investigação Operacional": "Modelo: Projeto + Exame final, nota mínima 10.",
-                    "Sistemas Operativos": "Modelo: Projeto + Exame final, nota mínima 10.",
-                    "Redes de Computadores": "Modelo: Projeto + Exame final, nota минима 10.",
-                    "Engenharia de Software": "Modelo: Projeto + Exame final, nota минима 10.",
-                    "Sistemas de Informação": "Modelo: Projeto + Exame final, nota минима 10.",
-                    "Engenharia de Software II": "Modelo: Projeto + Exame final, nota минима 10.",
-                    "Algoritmos e Estruturas de Dados": "Modelo: Projeto + Exame final, nota минима 10.",
-                    "Algebra Linear": "Modelo: Projeto + Exame final, nota минима 10.",
-                    "Analise Matemática": "Modelo: Projeto + Exame final, nota минима 10.",
-
-                },
-                "Engenharia Eletrotécnica": {
-                    "Eletrónica I": "Modelo: Laboratórios semanais + exame final.",
-                    "Circuitos Elétricos": "Modelo: Testes e simulações."
-                }
-            },
-            ESS: {
-                "Enfermagem": {
-                    "Anatomia": "Modelo: Avaliação contínua + exame prático.",
-                    "Ética em Saúde": "Modelo: Trabalhos escritos + apresentação oral."
-                }
-            },
-            ESE: {
-                "Educação Básica": {
-                    "Psicologia do Desenvolvimento": "Modelo: Testes + Relatórios.",
-                    "Didática da Matemática": "Modelo: Projetos em grupo + observação prática."
-                }
-            }
-        };
-
-        function renderCourses() {
-            const institution = document.getElementById('institutionSelect').value;
-            const courseSelect = document.getElementById('courseSelect');
-            const subjectContainer = document.getElementById('subjectListContainer');
-            const modelDiv = document.getElementById('subjectModel');
-
-            courseSelect.innerHTML = '<option value="">-- Escolha --</option>';
-            subjectContainer.innerHTML = '';
-            modelDiv.textContent = '';
-
-            if (institution && data[institution]) {
-                Object.keys(data[institution]).forEach(course => {
-                    const option = document.createElement('option');
-                    option.value = course;
-                    option.textContent = course;
-                    courseSelect.appendChild(option);
-                });
-                courseSelect.disabled = false;
-            } else {
-                courseSelect.disabled = true;
-            }
-        }
-
-        function renderSubjectsFromSelect() {
-            const institution = document.getElementById('institutionSelect').value;
-            const course = document.getElementById('courseSelect').value;
-            renderSubjects(institution, course);
-        }
-
-
-        function renderSubjects(institution, course) {
-            const subjectContainer = document.getElementById('subjectListContainer');
-            const modelDiv = document.getElementById('subjectModel');
-            const loadingOverlay = document.getElementById('loadingOverlay');
-
-            subjectContainer.innerHTML = '';
-            modelDiv.textContent = '';
-
-            const subjects = data[institution][course];
-            const ul = document.createElement('ul');
-            ul.className = 'subject-list';
-
-            Object.keys(subjects).forEach(subject => {
-                const li = document.createElement('li');
-                li.textContent = subject;
-                li.className = 'subject-item';
-                li.onclick = () => {
-                    const filename = subject.replace(/\s+/g, '_').toLowerCase() + ".txt";
-
-                    // Mostrar o overlay de loading
-                    loadingOverlay.style.display = 'flex';
-
-                    fetch('/change_vault', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ filename: filename })
-                    })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Esconder o overlay de loading
-                        loadingOverlay.style.display = 'none';
-
-                        if(data.success){
-                            alert(`Arquivo ${filename} carregado com sucesso!`);
-                        } else {
-                            alert("Erro ao carregar dados da disciplina: " + data.error);
-                        }
-                    })
-                    .catch(error => {
-                        loadingOverlay.style.display = 'none';
-                        alert("Erro na requisição: " + error.message);
-                    });
-                };
-
-                ul.appendChild(li);
-            });
-
-            subjectContainer.appendChild(ul);
         }
     </script>
 </body>
